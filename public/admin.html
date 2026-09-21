@@ -496,16 +496,6 @@ html[data-theme="light"] .chat-back-btn { background:#fff; color:#1f2937; border
 <select id="fundFilter" onchange="loadFundInvestments()" style="width: 170px !important; background: #111 !important;"><option value="all" data-i18n="optAll">ทั้งหมด</option><option value="active" data-i18n="optActive">กำลังลงทุน</option><option value="expired" data-i18n="optExpired">ครบกำหนด รอผล</option><option value="win" data-i18n="optWin">กำไร</option></select>
 </div>
 
-<div class="card mb-6">
-<h3 class="font-bold mb-2 text-white"><i class="fas fa-box-open text-yellow-400 mr-2"></i><span data-i18n="fundPkgCard">แพ็คเกจกองทุน (แสดงหน้าเว็บ)</span></h3>
-<p class="text-xs text-gray-500 mb-4">จำนวนเงิน / เปอร์เซ็นต์กำไร / จำนวนวัน — แก้ไขแล้วกดบันทึก หน้าเว็บจะอัปเดตทันที</p>
-<div class="space-y-3" id="fundPackagesList"></div>
-<div class="flex gap-3 mt-4">
-<button class="btn-primary" onclick="addFundPackageRow()"><i class="fas fa-plus"></i> <span data-i18n="btnAddPkg">เพิ่มแพ็คเกจ</span></button>
-<button class="btn-success" onclick="saveFundPackages()"><i class="fas fa-save"></i> <span data-i18n="btnSaveFundPkg">บันทึกแพ็คเกจกองทุน</span></button>
-</div>
-</div>
-
 <div class="card">
 <h3 class="font-bold mb-4 text-white"><i class="fas fa-list-check text-yellow-400 mr-2"></i><span data-i18n="fundListCard">รายการลงทุนของสมาชิก</span></h3>
 <div class="overflow-x-auto"><table><thead><tr><th>ID</th><th data-i18n="thMember">สมาชิก</th><th data-i18n="thAmount">จำนวน</th><th data-i18n="thProfitPct">กำไร %</th><th data-i18n="thDuration">ระยะเวลา</th><th data-i18n="thRemain">เวลาคงเหลือ</th><th data-i18n="thStatus">สถานะ</th><th data-i18n="thManage">จัดการ</th></tr></thead><tbody id="fundTable"></tbody></table></div>
@@ -574,6 +564,16 @@ html[data-theme="light"] .chat-back-btn { background:#fff; color:#1f2937; border
 <!-- SETTINGS -->
 <div class="tab-content p-6" id="tab-settings">
 <h2 class="text-2xl font-bold mb-6 text-white" id="settingsTitle" data-i18n="settings">ตั้งค่าเว็บไซต์</h2>
+
+<div class="card mb-6">
+<h3 class="font-bold mb-2 text-white"><i class="fas fa-box-open text-yellow-400 mr-2"></i><span data-i18n="fundPkgCard">แพ็คเกจกองทุน (แสดงหน้าเว็บ)</span></h3>
+<p class="text-xs text-gray-500 mb-4">จำนวนเงิน / เปอร์เซ็นต์กำไร / จำนวนวัน — แก้ไขแล้วกดบันทึก หน้าเว็บจะอัปเดตทันที</p>
+<div class="space-y-3" id="fundPackagesList"></div>
+<div class="flex gap-3 mt-4">
+<button class="btn-primary" onclick="addFundPackageRow()"><i class="fas fa-plus"></i> <span data-i18n="btnAddPkg">เพิ่มแพ็คเกจ</span></button>
+<button class="btn-success" onclick="saveFundPackages()"><i class="fas fa-save"></i> <span data-i18n="btnSaveFundPkg">บันทึกแพ็คเกจกองทุน</span></button>
+</div>
+</div>
 
 <!-- PACKAGES SETTINGS -->
 <div class="card mb-6">
@@ -709,7 +709,7 @@ html[data-theme="light"] .chat-back-btn { background:#fff; color:#1f2937; border
 </div></div></div>
 <div class="modal" id="editDepositModal"><div class="modal-content"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-white">แก้ไขรายการฝากเงิน</h3><button class="text-gray-500 hover:text-white" onclick="closeModal('editDepositModal')"><i class="fas fa-times"></i></button></div><div class="space-y-4"><div class="form-group"><label>จำนวนเงิน (USDT)</label><input id="editDepositAmount" type="number" step="0.01" style="background:#fbbf24 !important;color:#000 !important;"/></div><div class="form-group"><label>สถานะ</label><select id="editDepositStatus" style="background:#fbbf24 !important;color:#000 !important;"><option value="pending" data-i18n="optReview">รอตรวจสอบ</option><option value="approved">อนุมัติ</option><option value="rejected" data-i18n="optRejected">ปฏิเสธ</option></select></div><button class="btn-primary w-full" onclick="saveDepositEdit()">บันทึกการแก้ไข</button></div></div></div>
 <div class="modal" id="editWithdrawModal"><div class="modal-content"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-white">แก้ไขรายการถอนเงิน</h3><button class="text-gray-500 hover:text-white" onclick="closeModal('editWithdrawModal')"><i class="fas fa-times"></i></button></div><div class="space-y-4"><div class="form-group"><label>จำนวนเงิน (USDT)</label><input id="editWithdrawAmount" type="number" step="0.01" style="background:#fbbf24 !important;color:#000 !important;"/></div><div class="form-group"><label>สถานะ</label><select id="editWithdrawStatus" style="background:#fbbf24 !important;color:#000 !important;"><option value="pending" data-i18n="optReview">รอตรวจสอบ</option><option value="approved">อนุมัติ</option><option value="rejected" data-i18n="optRejected">ปฏิเสธ</option><option value="failed" data-i18n="optFailed">ล้มเหลว</option></select></div><div class="form-group"><label>หมายเหตุ</label><textarea id="editWithdrawNote" style="background:#fbbf24 !important;color:#000 !important;"></textarea></div><button class="btn-primary w-full" onclick="saveWithdrawEdit()">บันทึกการแก้ไข</button></div></div></div>
-<div class="modal" id="addAdminModal"><div class="modal-content"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-white">เพิ่มผู้ดูแลระบบ</h3><button class="text-gray-500 hover:text-white" onclick="closeModal('addAdminModal')"><i class="fas fa-times"></i></button></div><div class="space-y-4"><div class="form-group"><label>ชื่อผู้ใช้</label><input id="newAdminUsername" type="text" style="background:#fbbf24 !important;color:#000 !important;"/></div><div class="form-group"><label>ชื่อ</label><input id="newAdminName" type="text" style="background:#fbbf24 !important;color:#000 !important;"/></div><div class="form-group"><label>รหัสผ่าน</label><input id="newAdminPassword" type="password" style="background:#fbbf24 !important;color:#000 !important;"/></div><div class="form-group"><label>ยืนยันรหัสผ่าน</label><input id="newAdminConfirmPassword" type="password" style="background:#fbbf24 !important;color:#000 !important;"/></div><button class="btn-primary w-full" id="addAdminSubmitBtn" onclick="addAdmin(this)">เพิ่มผู้ดูแลระบบ</button></div></div></div>
+<div class="modal" id="addAdminModal"><div class="modal-content"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-white">เพิ่มผู้ดูแลระบบ</h3><button class="text-gray-500 hover:text-white" onclick="closeModal('addAdminModal')"><i class="fas fa-times"></i></button></div><div class="space-y-4"><div class="form-group"><label>ชื่อผู้ใช้</label><input id="newAdminUsername" type="text" style="background:#fbbf24 !important;color:#000 !important;"/></div><div class="form-group"><label>ชื่อ</label><input id="newAdminName" type="text" style="background:#fbbf24 !important;color:#000 !important;"/></div><div class="form-group"><label>รหัสผ่าน</label><input id="newAdminPassword" type="password" style="background:#fbbf24 !important;color:#000 !important;"/></div><div class="form-group"><label>ยืนยันรหัสผ่าน</label><input id="newAdminConfirmPassword" type="password" style="background:#fbbf24 !important;color:#000 !important;"/></div><div class="form-group"><label>สิทธิ์การใช้งาน (ติ๊กเลือกหน้าที่อนุญาต)</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;color:#ccc;font-size:13px;"><label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" class="newAdminPerm" value="users" checked> จัดการสมาชิก</label><label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" class="newAdminPerm" value="deposits" checked> รายการฝากเงิน</label><label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" class="newAdminPerm" value="withdraws" checked> รายการถอนเงิน</label><label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" class="newAdminPerm" value="trades" checked> จัดการการซื้อขาย</label><label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" class="newAdminPerm" value="fund" checked> จัดการกองทุน</label><label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" class="newAdminPerm" value="kyc" checked> ยืนยันตัวตน</label><label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" class="newAdminPerm" value="chat" checked> แชทลูกค้า</label></div></div><button class="btn-primary w-full" id="addAdminSubmitBtn" onclick="addAdmin(this)">เพิ่มผู้ดูแลระบบ</button></div></div></div>
 <div class="modal" id="depositSlipModal"><div class="modal-content"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-white">หลักฐานการโอน (Slip)</h3><button class="text-gray-500 hover:text-white" onclick="closeModal('depositSlipModal')"><i class="fas fa-times"></i></button></div><div class="text-center"><img id="depositSlipImg" src="" class="slip-preview" style="display:none;"><div id="depositSlipNoImg" class="text-gray-500 py-8">ไม่มีรูปสลิป</div></div></div></div>
 <div class="modal" id="kycDetailModal"><div class="modal-content xl"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-white">รายละเอียด KYC</h3><button class="text-gray-500 hover:text-white" onclick="closeModal('kycDetailModal')"><i class="fas fa-times"></i></button></div><div id="kycDetailContent"></div></div></div>
 <div class="modal" id="imagePreviewModal"><div class="modal-content" style="max-width:700px;"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-white">ดูรูปภาพ</h3><button class="text-gray-500 hover:text-white" onclick="closeModal('imagePreviewModal')"><i class="fas fa-times"></i></button></div><div class="text-center"><img id="previewImage" src="" style="max-width:100%;border-radius:12px;"></div></div></div>
@@ -1266,11 +1266,20 @@ async function checkAdminAuth() {
 // จำกัดสิทธิ์: ผู้ดูแลระบบที่ถูกเพิ่ม (ไม่ใช่ superadmin) ไม่เห็นเมนู ผู้ดูแลระบบ / ตั้งค่า P2P / ตั้งค่าเว็บไซต์
 function applyAdminRoleRestrictions() {
   const isSuper = !!(currentAdmin && (currentAdmin.role === 'superadmin' || currentAdmin.role === 'super'));
+  const allowed = (currentAdmin && Array.isArray(currentAdmin.permissions) && currentAdmin.permissions.length) ? currentAdmin.permissions : ['dashboard','users','deposits','withdraws','trades','fund','kyc','chat'];
   ['menuAdmins', 'menuP2P', 'menuSettings'].forEach(id => {
     const span = document.getElementById(id);
     const item = span ? span.closest('.sidebar-item') : null;
     if (item) item.style.display = isSuper ? '' : 'none';
   });
+  if (!isSuper) {
+    const __pmap = { menuUsers:'users', menuDeposits:'deposits', menuWithdraws:'withdraws', menuTrades:'trades', menuFund:'fund', menuKyc:'kyc', menuChat:'chat' };
+    Object.keys(__pmap).forEach(__mid => {
+      const __span = document.getElementById(__mid);
+      const __item = __span ? __span.closest('.sidebar-item') : null;
+      if (__item) __item.style.display = allowed.includes(__pmap[__mid]) ? '' : 'none';
+    });
+  }
   // ปุ่มแก้ข้อความหน้าแรก = site settings → superadmin เท่านั้น (server reject PUT /api/settings อยู่แล้ว)
   const homeBtn = document.getElementById('homeTextEditBtn');
   if (homeBtn) homeBtn.style.display = isSuper ? '' : 'none';
@@ -1301,12 +1310,12 @@ async function refreshAdminData() {
       deposits: loadDeposits,
       withdraws: loadWithdraws,
       trades: loadTrades,
-      fund: async () => { await loadFundPackagesAdmin(); await loadFundInvestments(); },
+      fund: async () => { await loadFundInvestments(); },
       kyc: loadKycs,
       chat: loadChatUsers,
       admins: loadAdmins,
       p2p: loadP2PSettings,
-      settings: async () => { await loadSettings(); await loadPackages(); await loadAutoTradeUserList(); await loadHeroImages(); }
+      settings: async () => { await loadSettings(); await loadPackages(); await loadAutoTradeUserList(); await loadHeroImages(); await loadFundPackagesAdmin(); }
     };
     const loader = loaders[tabId] || loadDashboard;
     await Promise.all([Promise.resolve(loader()), Promise.resolve(updateBadges())]);
@@ -1317,9 +1326,12 @@ async function refreshAdminData() {
 
 function showAdminTab(tabId, element) {
   // guard สิทธิ์ sub-admin
-  if (currentAdmin && !['superadmin', 'super'].includes(currentAdmin.role) && ['admins', 'p2p', 'settings'].includes(tabId)) {
-    tabId = 'dashboard';
-    element = document.querySelector('.sidebar-item');
+  if (currentAdmin && !['superadmin', 'super'].includes(currentAdmin.role)) {
+    const __allowed = (Array.isArray(currentAdmin.permissions) && currentAdmin.permissions.length) ? currentAdmin.permissions : ['dashboard','users','deposits','withdraws','trades','fund','kyc','chat'];
+    if (['admins', 'p2p', 'settings'].includes(tabId) || !__allowed.includes(tabId)) {
+      tabId = 'dashboard';
+      element = document.querySelector('.sidebar-item');
+    }
   }
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-' + tabId).classList.add('active');
@@ -1332,12 +1344,12 @@ function showAdminTab(tabId, element) {
   if (tabId === 'deposits') loadDeposits();
   if (tabId === 'withdraws') loadWithdraws(); 
   if (tabId === 'trades') loadTrades(); 
-  if (tabId === 'fund') { loadFundPackagesAdmin(); loadFundInvestments(); }
+  if (tabId === 'fund') { loadFundInvestments(); }
   if (tabId === 'kyc') loadKycs();
   if (tabId === 'chat') { loadChatUsers(); startChatPolling(); } else { stopChatPolling(); }
   if (tabId === 'admins') loadAdmins(); 
   if (tabId === 'p2p') loadP2PSettings(); 
-  if (tabId === 'settings') { loadSettings(); loadPackages(); loadAutoTradeUserList(); loadHeroImages(); }
+  if (tabId === 'settings') { loadSettings(); loadPackages(); loadAutoTradeUserList(); loadHeroImages(); loadFundPackagesAdmin(); }
   closeSidebarDrawer(); // มือถือ: เลือกเมนูแล้ว drawer ปิดอัตโนมัติ
 }
 
@@ -2148,6 +2160,7 @@ async function addAdmin(btn) {
     name,
     password,
     role: 'admin',
+    permissions: Array.from(document.querySelectorAll('.newAdminPerm:checked')).map(cb => cb.value),
     createdAt: new Date().toISOString(),
     created_at: new Date().toISOString()
   };
