@@ -329,7 +329,7 @@ html[data-theme="light"] .chat-back-btn { background:#fff; color:#1f2937; border
 <div class="sidebar-item" onclick="showAdminTab('withdraws', this)"><i class="fas fa-arrow-up w-5"></i><span id="menuWithdraws">รายการถอนเงิน</span><span class="badge-count" id="badgeWithdraws">0</span></div>
 <div class="sidebar-item" onclick="showAdminTab('trades', this)"><i class="fas fa-exchange-alt w-5"></i><span id="menuTrades">จัดการการซื้อขาย</span><span class="badge-count" id="badgeTrades">0</span></div>
 <div class="sidebar-item" onclick="showAdminTab('fund', this)"><i class="fas fa-piggy-bank w-5"></i><span id="menuFund">จัดการกองทุน</span><span class="badge-count" id="badgeFund">0</span></div>
-<div class="sidebar-item" onclick="showAdminTab('kyc', this)"><i class="fas fa-id-card w-5"></i><span id="menuKyc">ยืนยันตัวตน (KYC)</span><span class="badge-count" id="badgeKyc">0</span></div>
+<div class="sidebar-item" onclick="showAdminTab('kyc', this)"><i class="fas fa-id-card w-5"></i><span id="menuKyc">ยืนยันตัวตน</span><span class="badge-count" id="badgeKyc">0</span></div>
 <div class="sidebar-item" onclick="showAdminTab('chat', this)"><i class="fas fa-comments w-5"></i><span id="menuChat">แชทลูกค้า</span><span class="badge-count" id="badgeChat">0</span></div>
 <div class="sidebar-item" onclick="showAdminTab('admins', this)"><i class="fas fa-user-shield w-5"></i><span id="menuAdmins">ผู้ดูแลระบบ</span></div>
 <div class="sidebar-item" onclick="showAdminTab('p2p', this)"><i class="fas fa-qrcode w-5"></i><span id="menuP2P">ตั้งค่า P2P</span></div>
@@ -515,7 +515,7 @@ html[data-theme="light"] .chat-back-btn { background:#fff; color:#1f2937; border
 <!-- KYC -->
 <div class="tab-content p-6" id="tab-kyc">
 <div class="flex justify-between items-center mb-6">
-<h2 class="text-2xl font-bold text-white" id="kycTitle" data-i18n="kyc">ยืนยันตัวตน (KYC)</h2>
+<h2 class="text-2xl font-bold text-white" id="kycTitle" data-i18n="kyc">ยืนยันตัวตน</h2>
 <select id="kycFilter" onchange="loadKycs()" style="width: 150px !important; background: #111 !important;"><option value="all" data-i18n="optAll">ทั้งหมด</option><option value="pending" data-i18n="optReview">รอตรวจสอบ</option><option value="approved">อนุมัติ</option><option value="rejected" data-i18n="optRejected">ปฏิเสธ</option></select>
 </div>
 <div class="card"><div class="overflow-x-auto"><table><thead><tr><th data-i18n="thMember">สมาชิก</th><th data-i18n="thFullName">ชื่อ-นามสกุล</th><th data-i18n="thIdCard">เลขบัตร</th><th data-i18n="thStatus">สถานะ</th><th data-i18n="thDocs">เอกสาร</th><th data-i18n="thManage">จัดการ</th></tr></thead><tbody id="kycTable"></tbody></table></div></div>
@@ -767,7 +767,7 @@ function resizeImageFile(file, maxDim, quality) {
 
 const ADMIN_TRANSLATIONS = {
 th: {
-  dashboard: 'แดชบอร์ด', users: 'จัดการสมาชิก', deposits: 'รายการฝากเงิน', withdraws: 'รายการถอนเงิน', trades: 'จัดการการซื้อขาย', fund: 'จัดการกองทุน', kyc: 'ยืนยันตัวตน (KYC)', chat: 'แชทลูกค้า', admins: 'ผู้ดูแลระบบ', p2p: 'ตั้งค่า P2P', settings: 'ตั้งค่าเว็บไซต์', logout: 'ออกจากระบบ',
+  dashboard: 'แดชบอร์ด', users: 'จัดการสมาชิก', deposits: 'รายการฝากเงิน', withdraws: 'รายการถอนเงิน', trades: 'จัดการการซื้อขาย', fund: 'จัดการกองทุน', kyc: 'ยืนยันตัวตน', chat: 'แชทลูกค้า', admins: 'ผู้ดูแลระบบ', p2p: 'ตั้งค่า P2P', settings: 'ตั้งค่าเว็บไซต์', logout: 'ออกจากระบบ',
   themeLight: 'โหมดสว่าง', themeDark: 'โหมดมืด', themeAria: 'สลับโหมดสี', logoutConfirm: 'คุณต้องการออกจากระบบบัญชีของคุณใช่ไหม', cancel: 'ยกเลิก', logoutProcessing: 'กำลังออกจากระบบ...',
   loginSubtitle: 'เข้าสู่ระบบผู้ดูแลระบบ', loginError: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', usernameLabel: 'ชื่อผู้ใช้', usernamePlaceholder: 'กรอกชื่อผู้ใช้', passwordLabel: 'รหัสผ่าน', passwordPlaceholder: 'กรอกรหัสผ่าน', loginBtn: 'เข้าสู่ระบบ', backToSite: 'กลับไปหน้าเว็บไซต์', loginSuccess: 'เข้าสู่ระบบสำเร็จ',
   thMember: 'สมาชิก', thAmount: 'จำนวน', thStatus: 'สถานะ', thDate: 'วันที่', thManage: 'จัดการ', thType: 'ประเภท', thPhone: 'เบอร์โทร', thBalance: 'ยอดเงิน', thSlip: 'สลิป', thInfo: 'ข้อมูล', thFullName: 'ชื่อ-นามสกุล', thIdCard: 'เลขบัตร', thDocs: 'เอกสาร', thPair: 'คู่เงิน', thPackage: 'แพ็คเกจ', thRemain: 'เวลาคงเหลือ', thResult: 'ผล', thProfitPct: 'กำไร %', thDuration: 'ระยะเวลา',

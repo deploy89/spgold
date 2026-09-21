@@ -87,7 +87,7 @@ const TRANSLATIONS = {
     depositBtn: 'ฝากเงิน',
     withdrawBtn: 'ถอนเงิน',
     p2pBtn: 'P2P',
-    kycMenuText: 'ยืนยันตัวตน (KYC)',
+    kycMenuText: 'ยืนยันตัวตน',
     depositHistoryMenuText: 'ประวัติการฝากเงิน',
     withdrawHistoryMenuText: 'ประวัติการถอนเงิน',
     settingsMenuText: 'ตั้งค่า',
