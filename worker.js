@@ -267,6 +267,7 @@ async function api(req,env,u){const p=u.pathname.replace(/^\/api\/?/,'').split('
     return json({ok:false,error:'method not allowed'},405);
   }
   if(p[0]==='chats'&&p[1]==='read'&&method==='POST'){const s=await requireSession(req,env,'user');if(!s)return json({ok:false,error:'unauthorized'},401);const r=await env.DB.prepare("UPDATE chats SET data=json_set(data,'$.read',1) WHERE user_id=? AND json_extract(data,'$.sender')='admin'").bind(s.actor_id).run();return json({ok:true,updated:r.meta?.changes||0})}
+  if(p[0]==='chats'&&p[1]==='readstatus'&&method==='GET'){if(!admin)return json({ok:false,error:'forbidden'},403);const uid=String(u.searchParams.get('user_id')||'');if(!uid)return json({ok:false,error:'user_id required'},400);const rows=await env.DB.prepare("SELECT id FROM chats WHERE user_id=? AND json_extract(data,'$.sender')='admin' AND json_extract(data,'$.read')=1").bind(uid).all();return json({ok:true,ids:rows.results.map(r=>r.id)})}
   const [user,admin]=await Promise.all([requireSession(req,env,'user'),requireSession(req,env,'admin')]);
   // POST /api/media (admin only): raw body + x-file-type header → R2 bucket.
   // รูปเล็กๆ ยังใช้ base64 ใน settings ได้เหมือนเดิม; endpoint นี้สำหรับไฟล์ใหญ่/วิดีโอ

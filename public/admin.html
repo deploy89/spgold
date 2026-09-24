@@ -1967,7 +1967,7 @@ function chatTabIsActive() {
 
 function adminChatBubbleHtml(c) {
   const cls = c.sender === 'admin' ? 'admin' : 'user';
-  const del = `<button onclick="deleteAdminChatMsg('${c.id}',this)" title="ลบข้อความ" style="opacity:.65;font-size:16px;padding:4px 8px;flex-shrink:0;background:none;border:none;cursor:pointer;">🗑</button>`;
+  const del = cls === 'admin' ? `<button onclick="deleteAdminChatMsg('${c.id}',this)" title="ลบข้อความ" style="opacity:.65;font-size:16px;padding:4px 8px;flex-shrink:0;background:none;border:none;cursor:pointer;">🗑</button>` : '';
   const readTick = cls === 'admin' ? `<div style="font-size:12px;font-weight:600;width:100%;text-align:right;margin-top:3px;color:${c.read ? '#22c55e' : '#9ca3af'};">${c.read ? 'อ่านแล้ว ✓' : 'ส่งแล้ว'}</div>` : '';
   let inner;
   if (c.type === 'image') {
@@ -2014,12 +2014,20 @@ async function pollAdminChatNew() {
     const list = await DB.getChatsByUser(currentChatUserId, adminChatLastTs || undefined);
     const fresh = (list || []).sort((a, b) => new Date(a.created_at || a.createdAt) - new Date(b.created_at || b.createdAt));
     appendAdminChatMessages(fresh);
+      try {
+        const rs = await DB.getChatsReadStatus(currentChatUserId);
+        (rs.ids || []).forEach(function(rid) {
+          const el = document.querySelector('[data-cid="' + rid + '"]');
+          if (el) { const tick = el.querySelector('div[style*="text-align:right"]');
+            if (tick && tick.textContent.indexOf('อ่านแล้ว') === -1) { tick.textContent = 'อ่านแล้ว ✓'; tick.style.color = '#22c55e'; } }
+        });
+      } catch (e2) {}
   } catch (e) { console.error('chat poll', e); }
 }
 
 function startChatPolling() {
   stopChatPolling();
-  adminChatMsgTimer = setInterval(function () { if (!document.hidden) pollAdminChatNew(); }, 2500);
+  adminChatMsgTimer = setInterval(function () { if (!document.hidden) pollAdminChatNew(); }, 1500);
   adminChatListTimer = setInterval(function () { if (!document.hidden && chatTabIsActive()) loadChatUsers(); }, 20000);
 }
 

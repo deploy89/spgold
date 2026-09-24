@@ -2622,6 +2622,7 @@ async function pollChatNew() {
     const list = await DB.getChatsByUser(currentUser.id, chatLastTs || undefined);
     const fresh = (list || []).sort((a, b) => new Date(a.created_at || a.createdAt) - new Date(b.created_at || b.createdAt));
     appendChatMessages(fresh);
+    if (fresh.some(c => c && c.sender === 'admin')) { try { DB.markChatsRead(); } catch(e2) {} }
   } catch (e) { console.error('chat poll', e); }
 }
 

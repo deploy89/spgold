@@ -87,6 +87,7 @@
     deleteChatsByUser:function(userId){return apiFetch('/api/admin/chats?user_id='+enc(userId),{method:'DELETE'});},
     deleteChat:function(id){return apiFetch('/api/admin/chats/'+enc(id),{method:'DELETE'});},
     markChatsRead:function(){return apiFetch('/api/chats/read',{method:'POST',body:{}});},
+    getChatsReadStatus:function(uid){return apiFetch('/api/chats/readstatus?user_id='+enc(uid));},
     // Guest support chat (ผู้เยี่ยมชม ไม่ต้องล็อกอิน): token เก็บฝั่ง client
     guestChatSend:function(payload){return apiFetch('/api/chat/guest',{method:'POST',body:payload});},
     guestChatList:function(token,since){var u='/api/chat/guest?token='+enc(token);if(since)u+='&since='+enc(since);return apiFetch(u).then(function(r){return r.messages||[];});},
