@@ -466,7 +466,7 @@ html[data-theme="light"] .chat-back-btn { background:#fff; color:#1f2937; border
 <div class="tab-content p-6" id="tab-deposits">
 <div class="flex justify-between items-center mb-6">
 <h2 class="text-2xl font-bold text-white" id="depositsTitle" data-i18n="deposits">รายการฝากเงิน</h2>
-<select id="depositFilter" onchange="loadDeposits()" style="width: 150px !important; background: #111 !important;"><option value="all" data-i18n="optAll">ทั้งหมด</option><option value="pending" data-i18n="optReview">รอตรวจสอบ</option><option value="approved" data-i18n="optApproved">อนุมัติแล้ว</option><option value="rejected" data-i18n="optRejected">ปฏิเสธ</option></select>
+<input type="text" id="depositSearch" placeholder="ค้นหาด้วย ID..." oninput="loadDeposits()" style="width:170px !important;background:#111 !important;color:#f5f5f5;border:1px solid #333;border-radius:8px;padding:8px 12px;"/><select id="depositFilter" onchange="loadDeposits()" style="width: 150px !important; background: #111 !important;"><option value="all" data-i18n="optAll">ทั้งหมด</option><option value="pending" data-i18n="optReview">รอตรวจสอบ</option><option value="approved" data-i18n="optApproved">อนุมัติแล้ว</option><option value="rejected" data-i18n="optRejected">ปฏิเสธ</option></select>
 </div>
 <div class="card"><div class="overflow-x-auto"><table><thead><tr><th>ID</th><th data-i18n="thMember">สมาชิก</th><th data-i18n="thType">ประเภท</th><th data-i18n="thAmount">จำนวน</th><th data-i18n="thSlip">สลิป</th><th data-i18n="thStatus">สถานะ</th><th data-i18n="thDate">วันที่</th><th data-i18n="thManage">จัดการ</th></tr></thead><tbody id="depositsTable"></tbody></table></div></div>
 </div>
@@ -475,7 +475,7 @@ html[data-theme="light"] .chat-back-btn { background:#fff; color:#1f2937; border
 <div class="tab-content p-6" id="tab-withdraws">
 <div class="flex justify-between items-center mb-6">
 <h2 class="text-2xl font-bold text-white" id="withdrawsTitle" data-i18n="withdraws">รายการถอนเงิน</h2>
-<select id="withdrawFilter" onchange="loadWithdraws()" style="width: 150px !important; background: #111 !important;"><option value="all" data-i18n="optAll">ทั้งหมด</option><option value="pending" data-i18n="optReview">รอตรวจสอบ</option><option value="approved" data-i18n="optApproved">อนุมัติแล้ว</option><option value="rejected" data-i18n="optRejected">ปฏิเสธ</option><option value="failed" data-i18n="optFailed">ล้มเหลว</option></select>
+<input type="text" id="withdrawSearch" placeholder="ค้นหาด้วย ID..." oninput="loadWithdraws()" style="width:170px !important;background:#111 !important;color:#f5f5f5;border:1px solid #333;border-radius:8px;padding:8px 12px;"/><select id="withdrawFilter" onchange="loadWithdraws()" style="width: 150px !important; background: #111 !important;"><option value="all" data-i18n="optAll">ทั้งหมด</option><option value="pending" data-i18n="optReview">รอตรวจสอบ</option><option value="approved" data-i18n="optApproved">อนุมัติแล้ว</option><option value="rejected" data-i18n="optRejected">ปฏิเสธ</option><option value="failed" data-i18n="optFailed">ล้มเหลว</option></select>
 </div>
 <div class="card"><div class="overflow-x-auto"><table><thead><tr><th>ID</th><th data-i18n="thMember">สมาชิก</th><th data-i18n="thType">ประเภท</th><th data-i18n="thAmount">จำนวน</th><th data-i18n="thInfo">ข้อมูล</th><th data-i18n="thStatus">สถานะ</th><th data-i18n="thDate">วันที่</th><th data-i18n="thManage">จัดการ</th></tr></thead><tbody id="withdrawsTable"></tbody></table></div></div>
 </div>
@@ -484,7 +484,7 @@ html[data-theme="light"] .chat-back-btn { background:#fff; color:#1f2937; border
 <div class="tab-content p-6" id="tab-trades">
 <div class="flex justify-between items-center mb-6">
 <h2 class="text-2xl font-bold text-white" id="tradesTitle" data-i18n="trades">จัดการการซื้อขาย</h2>
-<select id="tradeFilter" onchange="loadTrades()" style="width: 150px !important; background: #111 !important;"><option value="all" data-i18n="optAll">ทั้งหมด</option><option value="pending" data-i18n="optPending">รอผล</option><option value="win" data-i18n="optWin">ชนะ</option><option value="lose" data-i18n="optLose">แพ้</option></select>
+<input type="text" id="tradeSearch" placeholder="ค้นหาด้วย ID..." oninput="loadTrades()" style="width:170px !important;background:#111 !important;color:#f5f5f5;border:1px solid #333;border-radius:8px;padding:8px 12px;"/><select id="tradeFilter" onchange="loadTrades()" style="width: 150px !important; background: #111 !important;"><option value="all" data-i18n="optAll">ทั้งหมด</option><option value="pending" data-i18n="optPending">รอผล</option><option value="win" data-i18n="optWin">ชนะ</option><option value="lose" data-i18n="optLose">แพ้</option></select>
 </div>
 <div class="card"><div class="overflow-x-auto"><table><thead><tr><th>ID</th><th data-i18n="thMember">สมาชิก</th><th data-i18n="thPair">คู่เงิน</th><th data-i18n="thType">ประเภท</th><th data-i18n="thAmount">จำนวน</th><th data-i18n="thPackage">แพ็คเกจ</th><th data-i18n="thRemain">เวลาคงเหลือ</th><th data-i18n="thResult">ผล</th><th data-i18n="thManage">จัดการ</th></tr></thead><tbody id="tradesTable"></tbody></table></div></div>
 </div>
@@ -493,7 +493,7 @@ html[data-theme="light"] .chat-back-btn { background:#fff; color:#1f2937; border
 <div class="tab-content p-6" id="tab-fund">
 <div class="flex justify-between items-center mb-6">
 <h2 class="text-2xl font-bold text-white" id="fundTitle" data-i18n="fund">จัดการกองทุน</h2>
-<select id="fundFilter" onchange="loadFundInvestments()" style="width: 170px !important; background: #111 !important;"><option value="all" data-i18n="optAll">ทั้งหมด</option><option value="active" data-i18n="optActive">กำลังลงทุน</option><option value="expired" data-i18n="optExpired">ครบกำหนด รอผล</option><option value="win" data-i18n="optWin">กำไร</option></select>
+<input type="text" id="fundSearch" placeholder="ค้นหาด้วย ID..." oninput="loadFundInvestments()" style="width:170px !important;background:#111 !important;color:#f5f5f5;border:1px solid #333;border-radius:8px;padding:8px 12px;"/><select id="fundFilter" onchange="loadFundInvestments()" style="width: 170px !important; background: #111 !important;"><option value="all" data-i18n="optAll">ทั้งหมด</option><option value="active" data-i18n="optActive">กำลังลงทุน</option><option value="expired" data-i18n="optExpired">ครบกำหนด รอผล</option><option value="win" data-i18n="optWin">กำไร</option></select>
 </div>
 
 <div class="card">
@@ -506,7 +506,7 @@ html[data-theme="light"] .chat-back-btn { background:#fff; color:#1f2937; border
 <div class="tab-content p-6" id="tab-kyc">
 <div class="flex justify-between items-center mb-6">
 <h2 class="text-2xl font-bold text-white" id="kycTitle" data-i18n="kyc">ยืนยันตัวตน</h2>
-<select id="kycFilter" onchange="loadKycs()" style="width: 150px !important; background: #111 !important;"><option value="all" data-i18n="optAll">ทั้งหมด</option><option value="pending" data-i18n="optReview">รอตรวจสอบ</option><option value="approved">อนุมัติ</option><option value="rejected" data-i18n="optRejected">ปฏิเสธ</option></select>
+<input type="text" id="kycSearch" placeholder="ค้นหาด้วย ID..." oninput="loadKycs()" style="width:170px !important;background:#111 !important;color:#f5f5f5;border:1px solid #333;border-radius:8px;padding:8px 12px;"/><select id="kycFilter" onchange="loadKycs()" style="width: 150px !important; background: #111 !important;"><option value="all" data-i18n="optAll">ทั้งหมด</option><option value="pending" data-i18n="optReview">รอตรวจสอบ</option><option value="approved">อนุมัติ</option><option value="rejected" data-i18n="optRejected">ปฏิเสธ</option></select>
 </div>
 <div class="card"><div class="overflow-x-auto"><table><thead><tr><th data-i18n="thMember">สมาชิก</th><th data-i18n="thFullName">ชื่อ-นามสกุล</th><th data-i18n="thIdCard">เลขบัตร</th><th data-i18n="thStatus">สถานะ</th><th data-i18n="thDocs">เอกสาร</th><th data-i18n="thManage">จัดการ</th></tr></thead><tbody id="kycTable"></tbody></table></div></div>
 </div>
@@ -1558,8 +1558,9 @@ async function loadUsers() {
 }
 
 async function searchUsers() {
-  const query = document.getElementById('userSearch').value.toLowerCase();
-  const users = await DB.getUsers(query);
+  const query = document.getElementById('userSearch').value.trim().toLowerCase();
+  let users = await DB.getUsers();
+  if (query) users = users.filter(u => (u.name||'').toLowerCase().includes(query) || (u.phone||'').includes(query) || String(u.user_code||u.userCode||'').toLowerCase().includes(query));
   document.getElementById('usersTable').innerHTML = users.map(u => {
     const kyc = u.kyc_status || u.kycStatus || 'none';
     const kycClass = kyc === 'verified' ? 'approved' : kyc === 'pending' ? 'pending' : 'rejected';
@@ -1671,7 +1672,9 @@ async function deleteUser(userId) {
 // ==================== DEPOSITS ====================
 async function loadDeposits() {
   const filter = document.getElementById('depositFilter').value;
-  let deposits = await DB.getDeposits(); 
+  let deposits = await DB.getDeposits();
+  { const __u = await DB.getUsers(); const __q = (document.getElementById('depositSearch')?.value || '').trim().toLowerCase();
+    if (__q) deposits = deposits.filter(d => { const __x = __u.find(u => u.id === d.user_id || u.id === d.userId); return String(userCodeOf(d, __x) || '').toLowerCase().includes(__q); }); } 
   if (filter !== 'all') deposits = deposits.filter(d => d.status === filter);
   deposits.sort((a, b) => new Date(b.created_at || b.createdAt) - new Date(a.created_at || a.createdAt));
   const users = await DB.getUsers();
@@ -1729,7 +1732,9 @@ async function saveDepositEdit() {
 // ==================== WITHDRAWS ====================
 async function loadWithdraws() {
   const filter = document.getElementById('withdrawFilter').value;
-  let withdraws = await DB.getWithdraws(); 
+  let withdraws = await DB.getWithdraws();
+  { const __u = await DB.getUsers(); const __q = (document.getElementById('withdrawSearch')?.value || '').trim().toLowerCase();
+    if (__q) withdraws = withdraws.filter(w => { const __x = __u.find(u => u.id === w.user_id || u.id === w.userId); return String(userCodeOf(w, __x) || '').toLowerCase().includes(__q); }); } 
   if (filter !== 'all') withdraws = withdraws.filter(w => w.status === filter);
   withdraws.sort((a, b) => new Date(b.created_at || b.createdAt) - new Date(a.created_at || a.createdAt));
   const users = await DB.getUsers();
@@ -1782,7 +1787,9 @@ async function saveWithdrawEdit() {
 async function loadTrades() {
   await processDueTradeSettlements(); // ปิดผลเทรดที่ครบเวลาและแอดมินตั้งผลไว้แล้ว
   const filter = document.getElementById('tradeFilter').value;
-  let trades = await DB.getTrades(); 
+  let trades = await DB.getTrades();
+  { const __u = await DB.getUsers(); const __q = (document.getElementById('tradeSearch')?.value || '').trim().toLowerCase();
+    if (__q) trades = trades.filter(x => { const __x = __u.find(u => u.id === x.user_id || u.id === x.userId); return String(userCodeOf(x, __x) || '').toLowerCase().includes(__q); }); } 
   if (filter === 'pending') trades = trades.filter(t => t.status === 'pending');
   else if (filter === 'win') trades = trades.filter(t => t.status === 'closed' && t.result === 'win');
   else if (filter === 'lose') trades = trades.filter(t => t.status === 'closed' && t.result === 'lose');
@@ -1847,7 +1854,9 @@ async function setTradeResultNow(tradeId, result, btn) {
 // ==================== KYC ====================
 async function loadKycs() {
   const filter = document.getElementById('kycFilter').value;
-  let kycs = await DB.getKycs(); if (filter !== 'all') kycs = kycs.filter(k => k.status === filter);
+  let kycs = await DB.getKycs();
+  { const __u = await DB.getUsers(); const __q = (document.getElementById('kycSearch')?.value || '').trim().toLowerCase();
+    if (__q) kycs = kycs.filter(k => { const __x = __u.find(u => u.id === k.user_id || u.id === k.userId); return String(userCodeOf(k, __x) || '').toLowerCase().includes(__q); }); } if (filter !== 'all') kycs = kycs.filter(k => k.status === filter);
   kycs.sort((a, b) => new Date(b.created_at || b.createdAt) - new Date(a.created_at || a.createdAt));
   const users = await DB.getUsers();
   document.getElementById('kycTable').innerHTML = kycs.map(k => {
@@ -1920,7 +1929,7 @@ async function loadChatUsers() {
   users.forEach(u => { 
     const userChats = chats.filter(c => c.user_id === u.id || c.userId === u.id); 
     if (userChats.length > 0) { 
-      chatUsers.push({ user: u, lastChat: userChats[userChats.length - 1], unread: userChats.filter(c => c.sender === 'user' && !c.read).length }); 
+      chatUsers.push({ user: u, lastChat: userChats.reduce((a,b)=> new Date(b.created_at||b.createdAt) > new Date(a.created_at||a.createdAt) ? b : a), unread: userChats.filter(c => c.sender === 'user' && !c.read).length }); 
     } 
   });
   // Guest threads (ผู้เยี่ยมชม ไม่ได้สมัครสมาชิก): user_id = 'guest:<token>'
@@ -1929,7 +1938,7 @@ async function loadChatUsers() {
   chats.forEach(c => { const cid = String(c.user_id || c.userId || ''); if (cid.indexOf('guest:') === 0) { (guestThreads[cid] = guestThreads[cid] || []).push(c); } });
   Object.keys(guestThreads).forEach(gid => {
     const gc = guestThreads[gid];
-    chatUsers.push({ user: { id: gid, name: 'ผู้เยี่ยมชม', phone: gid.slice(6, 14) + '…', guest: true }, lastChat: gc[gc.length - 1], unread: gc.filter(c => c.sender === 'user' && !c.read).length });
+    chatUsers.push({ user: { id: gid, name: 'ผู้เยี่ยมชม', phone: gid.slice(6, 14) + '…', guest: true }, lastChat: gc.reduce((a,b)=> new Date(b.created_at||b.createdAt) > new Date(a.created_at||a.createdAt) ? b : a), unread: gc.filter(c => c.sender === 'user' && !c.read).length });
   });
   chatUsers.sort((a, b) => {
     const gt = c => { const d = new Date(c.lastChat.created_at || c.lastChat.createdAt); return isNaN(d) ? 0 : d.getTime(); };
@@ -1958,10 +1967,26 @@ function chatTabIsActive() {
 
 function adminChatBubbleHtml(c) {
   const cls = c.sender === 'admin' ? 'admin' : 'user';
+  const del = `<button onclick="deleteAdminChatMsg('${c.id}',this)" title="ลบข้อความ" style="opacity:.65;font-size:16px;padding:4px 8px;flex-shrink:0;background:none;border:none;cursor:pointer;">🗑</button>`;
+  const readTick = cls === 'admin' ? `<div style="font-size:12px;font-weight:600;width:100%;text-align:right;margin-top:3px;color:${c.read ? '#22c55e' : '#9ca3af'};">${c.read ? 'อ่านแล้ว ✓' : 'ส่งแล้ว'}</div>` : '';
+  let inner;
   if (c.type === 'image') {
-    return `<div class="chat-message ${cls}"><img src="${c.message}" style="max-width:200px;border-radius:12px;cursor:pointer;" onclick="showImagePreview('${c.message}')"></div>`;
+    inner = `<img src="${c.message}" style="max-width:280px;border-radius:12px;cursor:pointer;" onclick="showImagePreview('${c.message}')">${del}`;
+  } else {
+    inner = `<span style="flex:1;">${c.message}</span>${del}`;
   }
-  return `<div class="chat-message ${cls}">${c.message}</div>`;
+  return `<div class="chat-message ${cls}" data-cid="${c.id}" style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;">${inner}${readTick}</div>`;
+}
+
+async function deleteAdminChatMsg(id, btn) {
+  if (!confirm('ลบข้อความนี้?')) return;
+  try {
+    await DB.deleteChat(id);
+    const el = btn.closest('[data-cid]');
+    if (el) el.remove();
+    try { delete adminChatKnownIds[id]; } catch(e) {}
+    showToast('ลบข้อความแล้ว', 'success');
+  } catch (e) { showToast('ลบไม่สำเร็จ ลองใหม่', 'normal'); }
 }
 
 function appendAdminChatMessages(chats) {
@@ -2656,6 +2681,8 @@ async function loadFundInvestments() {
   await processDueFundSettlements(); // ปิดผลรายการที่ครบเวลาและแอดมินตั้งผลไว้แล้ว
   const users = await DB.getUsers();
   let funds = (await getFundInvestments()).sort((a, b) => new Date(b.created_at || b.createdAt) - new Date(a.created_at || a.createdAt));
+  { const __q = (document.getElementById('fundSearch')?.value || '').trim().toLowerCase();
+    if (__q) funds = funds.filter(f => { const __x = users.find(u => u.id === f.user_id || u.id === f.userId); return String(userCodeOf(f, __x) || '').toLowerCase().includes(__q); }); }
   const filterEl = document.getElementById('fundFilter');
   const filter = filterEl ? filterEl.value : 'all';
   const now = Date.now();

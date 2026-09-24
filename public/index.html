@@ -1469,7 +1469,7 @@ function openAuthModal(type) {
   if (type === 'login') {
     container.innerHTML = `<h2 class="text-2xl font-bold mb-6 text-white">${t('loginTab')}</h2>
     <div class="space-y-4">
-    <input id="loginPhone" placeholder="${t('loginPhonePlaceholder')}" type="tel"/>
+    <input id="loginPhone" placeholder="${t('loginPhonePlaceholder')}" type="tel" maxlength="10" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)"/>
     <div class="pw-wrap"><input id="loginPassword" placeholder="${t('loginPasswordPlaceholder')}" type="password"/><button type="button" class="pw-eye" onclick="togglePasswordVisibility('loginPassword','loginPasswordEye')" tabindex="-1" aria-label="แสดง/ซ่อนรหัสผ่าน"><i class="fas fa-eye" id="loginPasswordEye"></i></button></div>
     <button class="w-full bg-yellow-500 text-black py-4 rounded-2xl font-bold shadow-lg hover:bg-yellow-400 transition" onclick="login()">${t('loginBtn')}</button>
     <p class="text-center text-sm text-gray-400"><button class="text-yellow-400 hover:underline" onclick="openAuthModal('register')">${t('registerTab')}</button></p>
@@ -1478,7 +1478,7 @@ function openAuthModal(type) {
     container.innerHTML = `<h2 class="text-2xl font-bold mb-6 text-white">${t('registerTab')}</h2>
     <div class="space-y-4">
     <input id="regName" placeholder="${t('regNamePlaceholder')}" type="text"/>
-    <input id="regPhone" placeholder="${t('regPhonePlaceholder')}" type="tel"/>
+    <input id="regPhone" placeholder="${t('regPhonePlaceholder')}" type="tel" maxlength="10" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)"/>
     <div class="pw-wrap"><input id="regPassword" placeholder="${t('regPasswordPlaceholder')}" type="password"/><button type="button" class="pw-eye" onclick="togglePasswordVisibility('regPassword','regPasswordEye')" tabindex="-1" aria-label="แสดง/ซ่อนรหัสผ่าน"><i class="fas fa-eye" id="regPasswordEye"></i></button></div>
     <div class="pw-wrap"><input id="regConfirmPassword" placeholder="${t('regConfirmPasswordPlaceholder')}" type="password"/><button type="button" class="pw-eye" onclick="togglePasswordVisibility('regConfirmPassword','regConfirmPasswordEye')" tabindex="-1" aria-label="แสดง/ซ่อนรหัสผ่าน"><i class="fas fa-eye" id="regConfirmPasswordEye"></i></button></div>
     <button class="w-full bg-yellow-500 text-black py-4 rounded-2xl font-bold shadow-lg hover:bg-yellow-400 transition" onclick="register()">${t('regBtn')}</button>
@@ -1492,6 +1492,7 @@ async function login() {
   const phone = document.getElementById('loginPhone').value.trim();
   const password = document.getElementById('loginPassword').value;
   if (!phone || !password) { showToast(t('loginError')); return; }
+  if (!/^\d{10}$/.test(phone)) { showToast('หมายเลขโทรศัพท์ไม่ถูกต้อง กรุณากรอก 10 หลัก'); return; }
 
   if (isSupabaseConnected()) {
     try {
@@ -1530,6 +1531,7 @@ async function register() {
   const password = document.getElementById('regPassword').value;
   const confirmPassword = document.getElementById('regConfirmPassword').value;
   if (!name || !phone || !password) { showToast(t('regError')); return; }
+  if (!/^\d{10}$/.test(phone)) { showToast('หมายเลขโทรศัพท์ไม่ถูกต้อง กรุณากรอก 10 หลัก'); return; }
   if (password !== confirmPassword) { showToast(t('passwordMismatch')); return; }
 
   const users = await DB.getUsers();
@@ -2764,6 +2766,7 @@ async function renderChat() {
   } else {
     if (!currentUser) return;
     chats = await DB.getChatsByUser(currentUser.id);
+    try { await DB.markChatsRead(); } catch(e) {}
   }
   chats = chats.sort((a, b) => new Date(a.created_at || a.createdAt) - new Date(b.created_at || b.createdAt));
   // Full render resets the incremental cursor/dedup state.
