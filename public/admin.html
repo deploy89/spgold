@@ -281,6 +281,11 @@ html[data-theme="light"] .chat-back-btn { background:#fff; color:#1f2937; border
   .toast { left:12px; right:12px; top:12px; text-align:center; }
 }
 @media (max-width: 380px) { .grid-4 { grid-template-columns:1fr; } }
+
+/* ช่องติ๊กสิทธิ์ผู้ดูแล: เห็นเครื่องหมายถูกชัดเจน */
+.newAdminPerm { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border: 2px solid #555; border-radius: 4px; background: #111; cursor: pointer; position: relative; flex-shrink: 0; margin: 0; }
+.newAdminPerm:checked { background: #f0b90b; border-color: #f0b90b; }
+.newAdminPerm:checked::after { content: '✔'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #000; font-size: 14px; font-weight: 900; line-height: 1; }
 </style>
 </head>
 <body>
@@ -514,12 +519,12 @@ html[data-theme="light"] .chat-back-btn { background:#fff; color:#1f2937; border
 <!-- CHAT -->
 <div class="tab-content p-6" id="tab-chat">
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" id="chatGrid" style="height: calc(100vh - 140px);">
-<div class="card chat-list-card lg:col-span-1 overflow-hidden flex flex-col"><h3 class="font-bold mb-4 text-white flex items-center gap-2"><i class="fas fa-comments text-yellow-400"></i><span data-i18n="chatListCard"> รายชื่อลูกค้า</span><button class="ml-auto text-gray-400 hover:text-yellow-400 transition text-base" title="รีเฟรช" onclick="loadChatUsers()">⟳</button></h3><div class="flex-1 overflow-y-auto space-y-2" id="chatUserList"></div></div>
+<div class="card chat-list-card lg:col-span-1 overflow-hidden flex flex-col"><h3 class="font-bold mb-4 text-white flex items-center gap-2"><i class="fas fa-comments text-yellow-400"></i><span data-i18n="chatListCard"> รายชื่อลูกค้า</span><button class="ml-auto text-gray-400 hover:text-yellow-400 transition text-xl" title="รีเฟรช" onclick="loadChatUsers()">⟳</button></h3><div class="flex-1 overflow-y-auto space-y-2" id="chatUserList"></div></div>
 <div class="card chat-window-card lg:col-span-2 overflow-hidden flex flex-col">
 <div class="flex justify-between items-center mb-4 pb-4 border-b border-[#1a1a1a]">
 <div class="flex items-center gap-3"><button type="button" class="chat-back-btn" onclick="backToChatList()" aria-label="ย้อนกลับ" title="ย้อนกลับ"><i class="fas fa-arrow-left"></i></button><div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-black font-bold text-lg" id="chatUserAvatar">U</div><div><div class="font-bold text-white" id="chatUserName">เลือกลูกค้า</div><div class="text-xs text-gray-500" id="chatUserPhone">-</div></div></div>
 <div class="flex items-center gap-2">
-<button class="text-gray-400 hover:text-yellow-400 transition text-lg" title="รีเฟรช" onclick="loadAdminChatMessages(true)">⟳</button>
+<button class="text-gray-400 hover:text-yellow-400 transition text-2xl" title="รีเฟรช" onclick="loadAdminChatMessages(true)">⟳</button>
 <button class="btn-danger text-sm" onclick="deleteUserChatHistory()" id="deleteChatBtn" style="display:none;"><i class="fas fa-trash"></i> ลบแชท</button>
 </div>
 </div>
@@ -1967,7 +1972,8 @@ function chatTabIsActive() {
 
 function adminChatBubbleHtml(c) {
   const cls = c.sender === 'admin' ? 'admin' : 'user';
-  const del = cls === 'admin' ? `<button onclick="deleteAdminChatMsg('${c.id}',this)" title="ลบข้อความ" style="opacity:.65;font-size:16px;padding:4px 8px;flex-shrink:0;background:none;border:none;cursor:pointer;">🗑</button>` : '';
+  const __canDel = !!(typeof currentAdmin !== 'undefined' && currentAdmin && (currentAdmin.role === 'superadmin' || currentAdmin.role === 'super' || String(c.sender_id || '') === String(currentAdmin.id)));
+  const del = (cls === 'admin' && __canDel) ? `<button onclick="deleteAdminChatMsg('${c.id}',this)" title="ลบข้อความ" style="opacity:.65;font-size:16px;padding:4px 8px;flex-shrink:0;background:none;border:none;cursor:pointer;">🗑</button>` : '';
   const readTick = cls === 'admin' ? `<div style="font-size:12px;font-weight:600;width:100%;text-align:right;margin-top:3px;color:${c.read ? '#22c55e' : '#9ca3af'};">${c.read ? 'อ่านแล้ว ✓' : 'ส่งแล้ว'}</div>` : '';
   let inner;
   if (c.type === 'image') {
@@ -2046,7 +2052,7 @@ async function selectChatUser(userId) {
     document.getElementById('chatUserPhone').textContent = user.guest ? 'ผู้เยี่ยมชม • ไม่ได้สมัครสมาชิก' : (user.phone + ((user.user_code || user.userCode) ? '  •  ID ' + (user.user_code || user.userCode) : ''));
     document.getElementById('chatUserAvatar').textContent = user.name.charAt(0);
   }
-  document.getElementById('deleteChatBtn').style.display = 'inline-flex';
+  document.getElementById('deleteChatBtn').style.display = (currentAdmin && (currentAdmin.role === 'superadmin' || currentAdmin.role === 'super')) ? 'inline-flex' : 'none';
   const chatGrid = document.getElementById('chatGrid');
   if (chatGrid) chatGrid.classList.add('chat-open'); // มือถือ: เข้าห้องแชทเต็มจอ
   try { var ucs = await DB.getChatsByUser(userId); await Promise.all(ucs.filter(function(c){return c.sender === 'user' && !c.read;}).map(function(c){return DB.updateChat(c.id, { read: true });})); } catch(e) {} // mark อ่านแล้ว — ตัวเลขแดงหายทันที
@@ -2085,6 +2091,8 @@ async function sendAdminMessage() {
     user_id: currentChatUserId,
     userId: currentChatUserId,
     sender: 'admin',
+    sender_id: (typeof currentAdmin !== 'undefined' && currentAdmin) ? currentAdmin.id : '',
+    sender_name: (typeof currentAdmin !== 'undefined' && currentAdmin) ? (currentAdmin.name || currentAdmin.username || '') : '',
     message: text,
     type: 'text',
     createdAt: nowIso,
@@ -2120,6 +2128,8 @@ async function sendAdminImage() {
       user_id: currentChatUserId,
       userId: currentChatUserId,
       sender: 'admin',
+    sender_id: (typeof currentAdmin !== 'undefined' && currentAdmin) ? currentAdmin.id : '',
+    sender_name: (typeof currentAdmin !== 'undefined' && currentAdmin) ? (currentAdmin.name || currentAdmin.username || '') : '',
       message: imageUrl,
       type: 'image',
       createdAt: nowIso,
