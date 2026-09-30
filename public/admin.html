@@ -2318,10 +2318,9 @@ async function deleteLogo(num) {
   const img = document.getElementById('logoPreview' + num); 
   img.src = ''; 
   img.classList.add('hidden');
-  const settings = await DB.getSettings(); 
   const key = num === 1 ? 'logoUrl1' : 'logoUrl2';
-  settings[key] = null;
-  await DB.updateSettings(settings);
+  const __up = {}; __up[key] = null;
+  await DB.updateSettings(__up);
   showToast('ลบโลโก้แล้ว', 'alert');
   } catch(e) { console.error(e); showToast((e && e.message) ? e.message : 'เกิดข้อผิดพลาด กรุณาลองใหม่','alert'); }
 }
@@ -2635,7 +2634,7 @@ async function savePackages(btn) {
     });
   }
   currentPackages = newPackages;
-  await DB.updateSettings({ tradePackages: JSON.stringify(currentPackages) });
+  await DB.updateSettings({ __pkgSave: 1, tradePackages: JSON.stringify(currentPackages) });
   showToast(tAdmin('pkgSaved'), 'success');
   } catch(e) { console.error(e); showToast((e && e.message) ? e.message : 'เกิดข้อผิดพลาด กรุณาลองใหม่','alert'); }
   finally { if (btn) { btn.disabled = false; btn.style.opacity = ''; } }
@@ -2690,7 +2689,7 @@ async function saveFundPackages() {
     arr.push({ amount: parseFloat(amounts[i].value) || 0, percent: parseFloat(percents[i].value) || 0, days: parseInt(daysInputs[i].value) || 1 });
   }
   currentFundPackages = arr;
-  await DB.updateSettings({ fundPackages: JSON.stringify(arr) });
+  await DB.updateSettings({ __pkgSave: 1, fundPackages: JSON.stringify(arr) });
   showToast('บันทึกแพ็คเกจกองทุนสำเร็จ', 'success');
   } catch(e) { console.error(e); showToast((e && e.message) ? e.message : 'เกิดข้อผิดพลาด กรุณาลองใหม่','alert'); }
 }
