@@ -236,7 +236,7 @@ html[data-theme="light"] .theme-switch-btn { background:#fff; color:#1f2937; bor
 .theme-switch-btn #adminThemeIcon { font-size:17px; }
 .theme-switch-btn #adminThemeLabel { display:none !important; }
 /* Sound alert indicator: ไอคอนกะพริบขณะเสียงแจ้งเตือนกำลังดัง */
-@keyframes soundAlertBlink { 0%,100% { opacity:1; color:#facc15; } 50% { opacity:.35; } }
+@keyframes soundAlertBlink { 0%,100% { opacity:1; color:#facc15; transform:scale(1); } 25% { opacity:.4; transform:scale(1.35) translateX(-2px); } 50% { opacity:1; color:#ef4444; transform:scale(1) translateX(2px); } 75% { opacity:.4; transform:scale(1.35) translateX(-2px); } }
 #adminSoundBtn.sound-alert-active #adminSoundIcon { animation: soundAlertBlink .8s infinite; color:#facc15; }
 
 /* ===== Mobile responsive (≤768px) — drawer sidebar, compact topbar, scrollable tables, fullscreen chat ===== */
@@ -956,6 +956,7 @@ let adminSoundEnabled = (function(){ try { return localStorage.getItem('adminSou
 const tradeAlertAudio = new Audio('/sound-trade.mp3');
 tradeAlertAudio.loop = true; tradeAlertAudio.preload = 'auto';
 const chatAlertAudio = new Audio('/sound-chat.mp3');
+chatAlertAudio.volume = 1;
 chatAlertAudio.loop = true; chatAlertAudio.preload = 'auto';
 // ฝาก/ถอน ใช้ไฟล์เดียวกับเทรด แต่เป็น instance แยกต่อประเภท (ห้ามเปิด instance เดียวกันซ้อน)
 const depositAlertAudio = new Audio('/sound-trade.mp3');

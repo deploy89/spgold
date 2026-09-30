@@ -109,6 +109,34 @@
     uploadMedia:uploadMedia
   };
   window.DB=DB;
+
+;
+/* ===== CACHE เร่งความเร็วแอดมิน: จำข้อมูลรายการ 15 วิ ===== */
+(function(){
+  var __c = {};
+  var TTL = 15000;
+  function bust(){ __c = {}; }
+  var cacheFns = ['getUsers','getDeposits','getWithdraws','getTrades','getKycs','getAdmins','getSettings'];
+  cacheFns.forEach(function(fn){
+    if (typeof DB[fn] !== 'function') return;
+    var orig = DB[fn].bind(DB);
+    DB[fn] = function(){
+      var key = fn + '|' + JSON.stringify(arguments);
+      var e = __c[key];
+      if (e && (Date.now() - e.t) < TTL) return e.p;
+      var p = orig.apply(null, arguments);
+      __c[key] = { t: Date.now(), p: p };
+      return p;
+    };
+  });
+  Object.keys(DB).forEach(function(k){
+    if (/^(create|update|delete|save|set)/.test(k) && typeof DB[k] === 'function' && cacheFns.indexOf(k) === -1) {
+      var orig = DB[k].bind(DB);
+      DB[k] = function(){ bust(); return orig.apply(null, arguments); };
+    }
+  });
+  DB.bustCache = bust;
+})();
   window.uploadMedia=uploadMedia;
   window.Auth={ getSession:function(){ return apiFetch('/api/auth/me').then(function(r){return r.user;}).catch(function(){return null;}); } };
   window.BinanceGoldAPI={fetch:apiFetch};
